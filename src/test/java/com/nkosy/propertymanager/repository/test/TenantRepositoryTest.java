@@ -1,9 +1,17 @@
-package com.nkosy.propertymanager.repository;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package com.nkosy.propertymanager.repository.test;
 
 import com.nkosy.propertymanager.app.ConnectionConfig;
-import com.nkosy.propertymanager.domain.Bathroom;
+import com.nkosy.propertymanager.domain.Tenant;
+import com.nkosy.propertymanager.repository.TenantRepository;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.testng.Assert;
 import static org.testng.Assert.*;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
@@ -15,26 +23,30 @@ import org.testng.annotations.Test;
  *
  * @author nkosy
  */
-public class BathroomRepositoryTest {
+public class TenantRepositoryTest {
     private static ApplicationContext ctx;
-    private BathroomRepository repo;
-    private long id;
+    private TenantRepository repo;
+    private Long id;
     
-    
-    public BathroomRepositoryTest() {
+    public TenantRepositoryTest() {
     }
 
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //
     @Test
-    public void addBathroom() 
+    public void addTenant() 
     {
-        repo = ctx.getBean(BathroomRepository.class);
-        Bathroom gents = new Bathroom.Builder("gents")
-                .lastMantained(null)
-                .itemList(null)
+        repo = ctx.getBean(TenantRepository.class);
+        
+        Tenant newTenant = new Tenant.Builder("FNB")
+                .spaceList(null)
+                .logList(null)
                 .build();
+        
+        repo.save(newTenant);
+        id = newTenant.getId();
+        Assert.assertNotNull(newTenant);   
     }
 
     @BeforeClass

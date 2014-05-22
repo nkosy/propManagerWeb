@@ -4,13 +4,15 @@
  * and open the template in the editor.
  */
 
-package com.nkosy.propertymanager.repository;
+package com.nkosy.propertymanager.repository.test;
 
 import com.nkosy.propertymanager.app.ConnectionConfig;
 import com.nkosy.propertymanager.domain.Address;
 import com.nkosy.propertymanager.domain.Building;
-import com.nkosy.propertymanager.domain.MantainanceInspector;
 import com.nkosy.propertymanager.domain.MantainanceSchedule;
+import com.nkosy.propertymanager.domain.SubContractor;
+import com.nkosy.propertymanager.domain.SubContractorManager;
+import com.nkosy.propertymanager.repository.ContractorManagerRepo;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.context.ApplicationContext;
@@ -27,21 +29,21 @@ import org.testng.annotations.Test;
  *
  * @author nkosy
  */
-public class InspectorRepoTest {
+public class ContrManagerRepoTest {
     private static ApplicationContext ctx;
-    private long id;
-    private InspectorRepository repo;
+    private Long id;
+    private ContractorManagerRepo repo;
     
-    public InspectorRepoTest() {
+    public ContrManagerRepoTest() {
     }
 
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //
     @Test(enabled = true)
-    public void AddInspector() 
+    public void AddSubContrManager() 
     {
-        repo = ctx.getBean(InspectorRepository.class);
+        repo = ctx.getBean(ContractorManagerRepo.class);
         
         List<MantainanceSchedule> scheduleList = new ArrayList<MantainanceSchedule>(); 
         
@@ -70,14 +72,20 @@ public class InspectorRepoTest {
                  .build();
         
         scheduleList.add(newSchedule2);
+
         
-        MantainanceInspector inspector = new MantainanceInspector.Builder("George")
-                .schedules(scheduleList)
+        SubContractor newSubContractor = new SubContractor.Builder("Saudi Aircon")
+                 .scheduleList(scheduleList)
+                 .build();
+        SubContractorManager manager = new SubContractorManager.Builder("John")
+                .phoneNum("0798956527")
+                .email("abc@def.com")
+                .company(newSubContractor)
                 .build();
         
-        repo.save(inspector);
-        id = inspector.getId();
-        Assert.assertNotNull(inspector);
+        repo.save(manager);
+        id = manager.getId();
+        Assert.assertNotNull(manager);
     }
 
     @BeforeClass

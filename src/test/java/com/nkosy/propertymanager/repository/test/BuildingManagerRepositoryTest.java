@@ -4,12 +4,13 @@
  * and open the template in the editor.
  */
 
-package com.nkosy.propertymanager.repository;
+package com.nkosy.propertymanager.repository.test;
 
 import com.nkosy.propertymanager.app.ConnectionConfig;
 import com.nkosy.propertymanager.domain.Address;
 import com.nkosy.propertymanager.domain.Building;
 import com.nkosy.propertymanager.domain.BuildingManager;
+import com.nkosy.propertymanager.repository.BuildingManagerRepository;
 import com.nkosy.propertymanager.repository.BuildingManagerRepository;
 import java.util.ArrayList;
 import java.util.List;

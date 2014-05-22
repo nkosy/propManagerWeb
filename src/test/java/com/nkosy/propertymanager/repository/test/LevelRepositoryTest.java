@@ -1,9 +1,8 @@
-package com.nkosy.propertymanager.repository;
+package com.nkosy.propertymanager.repository.test;
 
 import com.nkosy.propertymanager.app.ConnectionConfig;
-import com.nkosy.propertymanager.domain.Address;
-import com.nkosy.propertymanager.domain.Building;
-import com.nkosy.propertymanager.repository.BuildingRepository;
+import com.nkosy.propertymanager.domain.Level;
+import com.nkosy.propertymanager.repository.LevelRepository;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.testng.Assert;
@@ -18,36 +17,32 @@ import org.testng.annotations.Test;
  *
  * @author nkosy
  */
-public class BuildingRepositoryTest {
-    public static ApplicationContext ctx;
-    private Long id;
-
-    private BuildingRepository repo;
+public class LevelRepositoryTest {
+    private static ApplicationContext ctx;
+    private LevelRepository repo;
+    private long id;
     
-    public BuildingRepositoryTest() {
+    public LevelRepositoryTest() {
     }
 
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //
-    @Test(enabled = true)
-    public void CreateBuilding() {
-        repo = ctx.getBean(BuildingRepository.class);
-      
-        Address myAdd = new Address.Builder("12233").street("Cape Town").city("Western cape")
-                .Build();
-               
-        Building newBuilding = new Building.Builder("CityAge").address(myAdd).build();
-        
-        repo.save(newBuilding);
-         id = newBuilding.getId();
-         Assert.assertNotNull(newBuilding);
+    @Test
+    public void addLevel() 
+    {
+        repo = ctx.getBean(LevelRepository.class);
+        Level newLevel = new Level.Builder("Ground Floor")
+                .spaceList(null)
+                .build();
+        repo.save(newLevel);
+        id = newLevel.getId();
+        Assert.assertNotNull(newLevel);
     }
 
     @BeforeClass
     public static void setUpClass() throws Exception {
         ctx = new AnnotationConfigApplicationContext(ConnectionConfig.class);
-
     }
 
     @AfterClass

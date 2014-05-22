@@ -1,13 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-package com.nkosy.propertymanager.repository;
+package com.nkosy.propertymanager.repository.test;
 
 import com.nkosy.propertymanager.app.ConnectionConfig;
-import com.nkosy.propertymanager.domain.Tenant;
+import com.nkosy.propertymanager.domain.BoardRoom;
+import com.nkosy.propertymanager.repository.BoardRoomRepo;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.testng.Assert;
@@ -22,35 +17,35 @@ import org.testng.annotations.Test;
  *
  * @author nkosy
  */
-public class TenantRepositoryTest {
+public class BoardRoomRepoTest {
     private static ApplicationContext ctx;
-    private TenantRepository repo;
-    private Long id;
+    private BoardRoomRepo repo;
+    private long id;
     
-    public TenantRepositoryTest() {
+    public BoardRoomRepoTest() {
     }
 
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //
     @Test
-    public void addTenant() 
+    public void addBoardRoom() 
     {
-        repo = ctx.getBean(TenantRepository.class);
-        
-        Tenant newTenant = new Tenant.Builder("FNB")
-                .spaceList(null)
-                .logList(null)
+        repo = ctx.getBean(BoardRoomRepo.class);
+        BoardRoom room = new BoardRoom.Builder("Board room")
+                .itemList(null)
+                .lastMantained(null)
                 .build();
         
-        repo.save(newTenant);
-        id = newTenant.getId();
-        Assert.assertNotNull(newTenant);   
+        repo.save(room);
+        id = room.getId();
+        Assert.assertNotNull(room);         
     }
 
     @BeforeClass
     public static void setUpClass() throws Exception {
         ctx = new AnnotationConfigApplicationContext(ConnectionConfig.class);
+       
     }
 
     @AfterClass

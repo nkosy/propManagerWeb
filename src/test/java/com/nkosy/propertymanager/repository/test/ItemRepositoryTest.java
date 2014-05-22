@@ -1,13 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-package com.nkosy.propertymanager.repository;
+package com.nkosy.propertymanager.repository.test;
 
 import com.nkosy.propertymanager.app.ConnectionConfig;
-import com.nkosy.propertymanager.domain.MantainanceLog;
+import com.nkosy.propertymanager.domain.Item;
+import com.nkosy.propertymanager.repository.ItemRepository;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.testng.Assert;
@@ -22,34 +17,35 @@ import org.testng.annotations.Test;
  *
  * @author nkosy
  */
-public class MantainanceLogRepoTest {
+public class ItemRepositoryTest {
     private static ApplicationContext ctx;
-    private MantainanceLogRepo repo;
+    private ItemRepository repo;
     private long id;
     
-    public MantainanceLogRepoTest() {
+    public ItemRepositoryTest() {
     }
 
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //
     @Test
-    public void addLog() 
+    public void addItem() 
     {
-        repo = ctx.getBean(MantainanceLogRepo.class);
+        repo = ctx.getBean(ItemRepository.class);
         
-        MantainanceLog newLog = new MantainanceLog.Builder("leak")
-                .date("22/05/2014")
+        Item newItem = new Item.Builder("Security Camera")
+                .price(5000.00)
+                .lastReplaced(null)
                 .build();
         
-        repo.save(newLog);
-        id = newLog.getId();
-        Assert.assertNotNull(newLog);
+       repo.save(newItem);
+       id = newItem.getId();
+       Assert.assertNotNull(newItem);
     }
 
     @BeforeClass
     public static void setUpClass() throws Exception {
-        ctx = new AnnotationConfigApplicationContext(ConnectionConfig.class);
+       ctx = new AnnotationConfigApplicationContext(ConnectionConfig.class);
     }
 
     @AfterClass

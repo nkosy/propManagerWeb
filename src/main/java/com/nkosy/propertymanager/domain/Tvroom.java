@@ -15,69 +15,55 @@ import javax.persistence.OneToMany;
  * @author nkosy
  */
 @Entity
-public class MantainanceLog implements Serializable {
+public class Tvroom extends Facility implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String description;
-    private String date;
     @OneToMany(cascade = CascadeType.ALL)
-    private List<Item> itemList = new ArrayList<Item>();
+    protected List<Item> itemList = new ArrayList<Item>();
     
-    private MantainanceLog(){}
+    private Tvroom() {}
     
-    private MantainanceLog(Builder builder)
-    {
-        this.description = builder.description;
-        this.date = builder.date;
+    private Tvroom(Builder builder){
+        super();
+        name = builder.name;
+        lastMantained = builder.lastMantained;
         itemList = builder.itemList;
     }
     
     public static class Builder{
-        private String description;
-        private String date;
-        private List<Item> itemList = new ArrayList<Item>();
+        private String name;
+        private String lastMantained;
+        protected List<Item> itemList = new ArrayList<Item>();
         
-        public Builder(String desc)
-        {
-            this.description = desc;
+        public Builder(String name){
+            this.name = name;
         }
         
-        public Builder date(String value)
-        {
-            date = value;
+        public Builder lastMantained(String value) {
+            lastMantained = value;
             return this;
         }
         
-        public Builder itemList(List<Item> value)
-        {
-            itemList = value;
-            return this;
+        public Builder itemList(List<Item> value){
+           itemList = value;
+           return this;
         }
         
-        public MantainanceLog build()
-        {
-            return new MantainanceLog(this);
+        public Tvroom build(){
+            return new Tvroom(this);
         }
     }
-
+   
     public Long getId() {
         return id;
     }
 
-    public String getDescription() {
-        return description;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getDate() {
-        return date;
-    }
-
-    public List<Item> getItemList() {
-        return itemList;
-    }
-    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -88,10 +74,10 @@ public class MantainanceLog implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof MantainanceLog)) {
+        if (!(object instanceof Tvroom)) {
             return false;
         }
-        MantainanceLog other = (MantainanceLog) object;
+        Tvroom other = (Tvroom) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -100,6 +86,6 @@ public class MantainanceLog implements Serializable {
 
     @Override
     public String toString() {
-        return "com.nkosy.propertymanager.domain.mantainanceLog[ id=" + id + " ]";
-    }
+        return "com.nkosy.propertymanager.domain.Tvroom[ id=" + id + " ]";
+    } 
 }

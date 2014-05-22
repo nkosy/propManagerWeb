@@ -4,12 +4,13 @@
  * and open the template in the editor.
  */
 
-package com.nkosy.propertymanager.repository;
+package com.nkosy.propertymanager.repository.test;
 
 import com.nkosy.propertymanager.app.ConnectionConfig;
 import com.nkosy.propertymanager.domain.Address;
 import com.nkosy.propertymanager.domain.Building;
 import com.nkosy.propertymanager.domain.MantainanceSchedule;
+import com.nkosy.propertymanager.repository.MantainanceScheduleRepository;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.testng.Assert;

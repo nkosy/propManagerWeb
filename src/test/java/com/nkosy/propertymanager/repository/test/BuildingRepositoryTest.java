@@ -1,13 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-package com.nkosy.propertymanager.repository;
+package com.nkosy.propertymanager.repository.test;
 
 import com.nkosy.propertymanager.app.ConnectionConfig;
-import com.nkosy.propertymanager.domain.PrintingRoom;
+import com.nkosy.propertymanager.domain.Address;
+import com.nkosy.propertymanager.domain.Building;
+import com.nkosy.propertymanager.repository.BuildingRepository;
+import com.nkosy.propertymanager.repository.BuildingRepository;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.testng.Assert;
@@ -22,33 +19,36 @@ import org.testng.annotations.Test;
  *
  * @author nkosy
  */
-public class PrintingRoomRepoTest {
-    private static ApplicationContext ctx;
-    private PrintingRoomRepo repo;
-    private long id;
+public class BuildingRepositoryTest {
+    public static ApplicationContext ctx;
+    private Long id;
+
+    private BuildingRepository repo;
     
-    public PrintingRoomRepoTest() {
+    public BuildingRepositoryTest() {
     }
 
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //
-    @Test
-    public void addPrintRoom() 
-    {
-        repo = ctx.getBean(PrintingRoomRepo.class);
-        PrintingRoom room = new PrintingRoom.Builder("Printing Room")
-                .itemList(null)
-                .lastMantained(null)
-                .build();
+    @Test(enabled = true)
+    public void CreateBuilding() {
+        repo = ctx.getBean(BuildingRepository.class);
+      
+        Address myAdd = new Address.Builder("12233").street("Cape Town").city("Western cape")
+                .Build();
+               
+        Building newBuilding = new Building.Builder("CityAge").address(myAdd).build();
         
-        repo.save(room);
-        Assert.assertNotNull(room);
+        repo.save(newBuilding);
+         id = newBuilding.getId();
+         Assert.assertNotNull(newBuilding);
     }
 
     @BeforeClass
     public static void setUpClass() throws Exception {
         ctx = new AnnotationConfigApplicationContext(ConnectionConfig.class);
+
     }
 
     @AfterClass

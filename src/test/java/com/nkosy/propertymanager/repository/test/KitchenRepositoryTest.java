@@ -4,10 +4,11 @@
  * and open the template in the editor.
  */
 
-package com.nkosy.propertymanager.repository;
+package com.nkosy.propertymanager.repository.test;
 
 import com.nkosy.propertymanager.app.ConnectionConfig;
-import com.nkosy.propertymanager.domain.OfficeSpace;
+import com.nkosy.propertymanager.domain.Kitchen;
+import com.nkosy.propertymanager.repository.KitchenRepository;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.testng.Assert;
@@ -22,32 +23,33 @@ import org.testng.annotations.Test;
  *
  * @author nkosy
  */
-public class OfficeSpaceRepoTest {
+public class KitchenRepositoryTest {
     private static ApplicationContext ctx;
-    private OfficeSpaceRepository repo;
+    private KitchenRepository repo;
     private long id;
     
-    public OfficeSpaceRepoTest() {
+    public KitchenRepositoryTest() {
     }
 
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //
     @Test
-    public void createOfficeSpace() 
-    {
-        repo = ctx.getBean(OfficeSpaceRepository.class);
-        OfficeSpace newSpace = new OfficeSpace.Builder("Large")
-                .officeKitchen(null)
+    public void addKitchen() {
+        repo = ctx.getBean(KitchenRepository.class);
+        Kitchen newKitchen = new Kitchen.Builder("Kitchen")
+                .lastMantained(null)
+                .itemList(null)
                 .build();
         
-        repo.save(newSpace);
-        Assert.assertNotNull(newSpace);
+        repo.save(newKitchen);
+        id = newKitchen.getId();
+        Assert.assertNotNull(newKitchen);
     }
 
     @BeforeClass
     public static void setUpClass() throws Exception {
-        ctx = new AnnotationConfigApplicationContext(ConnectionConfig.class);   
+        ctx = new AnnotationConfigApplicationContext(ConnectionConfig.class);
     }
 
     @AfterClass

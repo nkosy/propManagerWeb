@@ -1,10 +1,10 @@
-package com.nkosy.propertymanager.repository;
+package com.nkosy.propertymanager.repository.test;
 
 import com.nkosy.propertymanager.app.ConnectionConfig;
-import com.nkosy.propertymanager.domain.Level;
+import com.nkosy.propertymanager.domain.Bathroom;
+import com.nkosy.propertymanager.repository.BathroomRepository;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.testng.Assert;
 import static org.testng.Assert.*;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
@@ -16,27 +16,26 @@ import org.testng.annotations.Test;
  *
  * @author nkosy
  */
-public class LevelRepositoryTest {
+public class BathroomRepositoryTest {
     private static ApplicationContext ctx;
-    private LevelRepository repo;
+    private BathroomRepository repo;
     private long id;
     
-    public LevelRepositoryTest() {
+    
+    public BathroomRepositoryTest() {
     }
 
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //
     @Test
-    public void addLevel() 
+    public void addBathroom() 
     {
-        repo = ctx.getBean(LevelRepository.class);
-        Level newLevel = new Level.Builder("Ground Floor")
-                .spaceList(null)
+        repo = ctx.getBean(BathroomRepository.class);
+        Bathroom gents = new Bathroom.Builder("gents")
+                .lastMantained(null)
+                .itemList(null)
                 .build();
-        repo.save(newLevel);
-        id = newLevel.getId();
-        Assert.assertNotNull(newLevel);
     }
 
     @BeforeClass

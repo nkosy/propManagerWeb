@@ -1,14 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-package com.nkosy.propertymanager.repository;
+package com.nkosy.propertymanager.repository.test;
 
 import com.nkosy.propertymanager.app.ConnectionConfig;
-import com.nkosy.propertymanager.domain.Job;
-import com.nkosy.propertymanager.domain.MantainanceInspector;
+import com.nkosy.propertymanager.domain.MantainanceLog;
+import com.nkosy.propertymanager.repository.MantainanceLogRepo;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.testng.Assert;
@@ -23,35 +17,30 @@ import org.testng.annotations.Test;
  *
  * @author nkosy
  */
-public class JobRepositoryTest {
+public class MantainanceLogRepoTest {
     private static ApplicationContext ctx;
+    private MantainanceLogRepo repo;
     private long id;
-    private JobRepository repo;
     
-    
-    public JobRepositoryTest() {
+    public MantainanceLogRepoTest() {
     }
 
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //
     @Test
-    public void createJob() 
+    public void addLog() 
     {
-        repo = ctx.getBean(JobRepository.class);
+        repo = ctx.getBean(MantainanceLogRepo.class);
         
-        MantainanceInspector inspector = new MantainanceInspector.Builder("George")
-                .schedules(null)
+        MantainanceLog newLog = new MantainanceLog.Builder("leak")
+                .itemList(null)
+                .date("22/05/2014")
                 .build();
         
-        Job newJob = new Job.Builder("Paint the walls")
-                .cost(500.00)
-                .inspector(inspector)
-                .build();
-        
-        repo.save(newJob);
-        id = newJob.getId();
-        Assert.assertNotNull(newJob);
+        repo.save(newLog);
+        id = newLog.getId();
+        Assert.assertNotNull(newLog);
     }
 
     @BeforeClass

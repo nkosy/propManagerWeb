@@ -1,10 +1,10 @@
-package com.nkosy.propertymanager.repository;
+package com.nkosy.propertymanager.repository.test;
 
 import com.nkosy.propertymanager.app.ConnectionConfig;
-import com.nkosy.propertymanager.domain.Item;
+import com.nkosy.propertymanager.domain.Tvroom;
+import com.nkosy.propertymanager.repository.TvroomRepository;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.testng.Assert;
 import static org.testng.Assert.*;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
@@ -16,35 +16,30 @@ import org.testng.annotations.Test;
  *
  * @author nkosy
  */
-public class ItemRepositoryTest {
+public class TvroomRepositoryTest {
     private static ApplicationContext ctx;
-    private ItemRepository repo;
+    private TvroomRepository repo;
     private long id;
     
-    public ItemRepositoryTest() {
+    public TvroomRepositoryTest() {
     }
 
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //
     @Test
-    public void addItem() 
+    public void addTvroom() 
     {
-        repo = ctx.getBean(ItemRepository.class);
-        
-        Item newItem = new Item.Builder("Security Camera")
-                .price(5000.00)
-                .lastReplaced(null)
+        repo = ctx.getBean(TvroomRepository.class);
+        Tvroom room = new Tvroom.Builder("TV room")
+                .itemList(null)
+                .lastMantained(null)
                 .build();
-        
-       repo.save(newItem);
-       id = newItem.getId();
-       Assert.assertNotNull(newItem);
     }
 
     @BeforeClass
     public static void setUpClass() throws Exception {
-       ctx = new AnnotationConfigApplicationContext(ConnectionConfig.class);
+        ctx = new AnnotationConfigApplicationContext(ConnectionConfig.class);
     }
 
     @AfterClass

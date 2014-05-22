@@ -4,14 +4,14 @@
  * and open the template in the editor.
  */
 
-package com.nkosy.propertymanager.repository;
+package com.nkosy.propertymanager.repository.test;
 
 import com.nkosy.propertymanager.app.ConnectionConfig;
 import com.nkosy.propertymanager.domain.Address;
 import com.nkosy.propertymanager.domain.Building;
 import com.nkosy.propertymanager.domain.MantainanceSchedule;
 import com.nkosy.propertymanager.domain.SubContractor;
-import com.nkosy.propertymanager.domain.SubContractorManager;
+import com.nkosy.propertymanager.repository.SubContractorRepository;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.context.ApplicationContext;
@@ -28,21 +28,22 @@ import org.testng.annotations.Test;
  *
  * @author nkosy
  */
-public class ContrManagerRepoTest {
+public class SubContrRepoTest {
     private static ApplicationContext ctx;
-    private Long id;
-    private ContractorManagerRepo repo;
+    private long id;
+    private SubContractorRepository repo;
     
-    public ContrManagerRepoTest() {
+    
+    public SubContrRepoTest() {
     }
 
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //
     @Test(enabled = true)
-    public void AddSubContrManager() 
+    public void AddSubContractor() 
     {
-        repo = ctx.getBean(ContractorManagerRepo.class);
+        repo = ctx.getBean(SubContractorRepository.class);
         
         List<MantainanceSchedule> scheduleList = new ArrayList<MantainanceSchedule>(); 
         
@@ -76,15 +77,10 @@ public class ContrManagerRepoTest {
         SubContractor newSubContractor = new SubContractor.Builder("Saudi Aircon")
                  .scheduleList(scheduleList)
                  .build();
-        SubContractorManager manager = new SubContractorManager.Builder("John")
-                .phoneNum("0798956527")
-                .email("abc@def.com")
-                .company(newSubContractor)
-                .build();
         
-        repo.save(manager);
-        id = manager.getId();
-        Assert.assertNotNull(manager);
+        repo.save(newSubContractor);
+        id = newSubContractor.getId();
+        Assert.assertNotNull(newSubContractor);  
     }
 
     @BeforeClass
